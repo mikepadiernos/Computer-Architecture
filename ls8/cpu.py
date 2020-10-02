@@ -90,7 +90,8 @@ class CPU:
                 self.pc += 3
             elif execute == PRN:
                 value = self.reg[op_a]
-                print(f"The value is {value}.")
+                register = self.ram_read(self.pc + 1)
+                print(f"The value of R{register} is {value}.")
                 self.pc += 2
             else:
                 sys.exit(1)
