@@ -2,9 +2,7 @@
 
 import sys
 
-LDI = 0b10000010
-PRN = 0b01000111
-HLT = 0b00000001
+LDI, PRN, HLT = 0b10000010, 0b01000111, 0b00000001
 
 
 class CPU:
@@ -78,6 +76,7 @@ class CPU:
 
     def run(self):
         """Run the CPU."""
+
         while self.running:
             execute = self.ram_read(self.pc)
             op_a = self.ram_read(self.pc + 1)
