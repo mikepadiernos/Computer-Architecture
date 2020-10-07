@@ -2,7 +2,7 @@
 
 import sys
 
-LDI, PRN, HLT = 0b10000010, 0b01000111, 0b00000001
+LDI, PRN, HLT, PUSH, POP = 0b10000010, 0b01000111, 0b00000001, 0b01000101, 0b01000110
 
 
 class CPU:
@@ -14,7 +14,9 @@ class CPU:
         """
         self.reg = [0] * 8
         self.ram = [0] * 256
-        self.reg[7] = 0xF4
+        # self.reg[7] = 0xF4
+        self.sp = 7
+        self.reg[self.sp] = len(self.ram) - 1
         self.pc = 0
         self.running = True
 
@@ -96,5 +98,16 @@ class CPU:
                 register = self.ram_read(self.pc + 1)
                 print(f"The value of R{register} is {value}.")
                 self.pc += 2
+            elif execute == PUSH:
+                print("push")
+                self.reg[self.sp] -= 1
+                get_value = self.ram[self.pc + 1]
+                value = self.reg[get_value]
+                self.ram[self.reg[self.sp]] = value
+                print(f"{value}")
+                self.pc += 2
+            # elif execute == POP:
+            #     print("pop")
+            #     self.reg[self.sp] += 1
             else:
                 sys.exit(1)
