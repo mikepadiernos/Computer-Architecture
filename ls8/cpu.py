@@ -101,13 +101,16 @@ class CPU:
             elif execute == PUSH:
                 print("push")
                 self.reg[self.sp] -= 1
-                get_value = self.ram[self.pc + 1]
-                value = self.reg[get_value]
-                self.ram[self.reg[self.sp]] = value
+                value = self.reg[op_a]
+                self.ram_write(value, self.reg[self.sp])
                 print(f"{value}")
                 self.pc += 2
-            # elif execute == POP:
-            #     print("pop")
-            #     self.reg[self.sp] += 1
+            elif execute == POP:
+                print("pop")
+                top = self.ram_read(self.reg[self.sp])
+                self.reg[op_a] = top
+                self.reg[self.sp] += 1
+                print(f"{top}")
+                self.pc += 2
             else:
                 sys.exit(1)
