@@ -106,7 +106,7 @@ class CPU:
             execute = self.ram_read(self.pc)
             operand_a = self.ram_read(self.pc + 1)
             operand_b = self.ram_read(self.pc + 2)
-            print(f'{operand_a}, {operand_b}')
+            # print(f'{operand_a}, {operand_b}')
 
             if execute == self.instructions['HLT']:
                 self.running = False
